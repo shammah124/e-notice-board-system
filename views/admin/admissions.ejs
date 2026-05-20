@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Admissions</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+<div class="container mt-5">
+
+    <div class="d-flex justify-content-between mb-4">
+
+        <h2>Manage Admission Lists</h2>
+
+        <a href="/admin/dashboard" class="btn btn-dark">
+            Dashboard
+        </a>
+
+    </div>
+
+    <div class="card shadow p-4 mb-5">
+
+        <h4>Upload Admission PDF</h4>
+
+        <form
+            action="/admissions/upload"
+            method="POST"
+            enctype="multipart/form-data"
+        >
+
+            <div class="mb-3">
+
+                <label>Admission Title</label>
+
+                <input
+                    type="text"
+                    name="title"
+                    class="form-control"
+                    required
+                >
+
+            </div>
+
+            <div class="mb-3">
+
+                <label>Select PDF File</label>
+
+                <input
+                    type="file"
+                    name="admission_file"
+                    class="form-control"
+                    accept=".pdf"
+                    required
+                >
+
+            </div>
+
+            <button class="btn btn-info">
+                Upload Admission List
+            </button>
+
+        </form>
+
+    </div>
+
+    <div class="card shadow p-4">
+
+        <h4>Uploaded Admission Lists</h4>
+
+        <table class="table table-bordered mt-3">
+
+            <thead>
+
+                <tr>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Uploaded By</th>
+                    <th>PDF</th>
+                    <th>Action</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                <% admissions.forEach(admission => { %>
+
+                    <tr>
+
+                        <td><%= admission.id %></td>
+
+                        <td><%= admission.title %></td>
+
+                        <td><%= admission.fullname %></td>
+
+                        <td>
+
+                            <a
+                                href="/uploads/admissions/<%= admission.file_name %>"
+                                target="_blank"
+                                class="btn btn-primary btn-sm"
+                            >
+                                View PDF
+                            </a>
+
+                        </td>
+
+                        <td>
+
+                            <a
+                                href="/admissions/delete/<%= admission.id %>"
+                                class="btn btn-danger btn-sm"
+                            >
+                                Delete
+                            </a>
+
+                        </td>
+
+                    </tr>
+
+                <% }) %>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+</body>
+</html>
