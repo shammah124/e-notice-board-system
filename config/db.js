@@ -10,9 +10,12 @@ const pool = mysql.createPool({
     port: process.env.DB_PORT,
     waitForConnections: true,
     connectionLimit: 10,
-    queueLimit: 0
+    queueLimit: 0,
+    ssl: {
+        rejectUnauthorized: false
+    }
 });
 
-console.log("Database pool connected");
+console.log("Database pool initialized");
 
 module.exports = pool;
